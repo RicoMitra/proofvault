@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next
+.next/
+out/
+next-env.d.ts
+
+# production
+dist/
+build/
+
+# testing
+coverage/
+
+# env
+.env*
+!.env.example
+
+# vercel
+.vercel/
+
+# misc
+*.tsbuildinfo
+*.log
+Thumbs.db
+.DS_Store
