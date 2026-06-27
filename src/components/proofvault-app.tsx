@@ -324,7 +324,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
 
       <section className="grid gap-6 py-8 lg:grid-cols-[390px_minmax(0,1fr)]">
         <form
-          className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-5 shadow-[var(--shadow)]"
+          className="min-w-0 rounded-lg border border-[var(--border)] bg-[var(--panel)] p-5 shadow-[var(--shadow)]"
           onSubmit={(event) => {
             event.preventDefault();
             void handleSave();
@@ -349,15 +349,15 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
             ) : null}
           </div>
 
-          <div className="grid gap-4">
+          <div className="grid min-w-0 gap-4">
             <TextField label="Item or service name" value={form.name} onChange={(value) => setForm({ ...form, name: value })} required />
             <TextField label="Seller" value={form.seller} onChange={(value) => setForm({ ...form, seller: value })} required />
             <TextField label="Category" value={form.category} onChange={(value) => setForm({ ...form, category: value })} />
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid min-w-0 gap-4 sm:grid-cols-2">
               <TextField label="Purchase date" type="date" value={form.purchaseDate} onChange={(value) => setForm({ ...form, purchaseDate: value })} required />
               <TextField label="Purchase price" type="number" value={form.purchasePrice} onChange={(value) => setForm({ ...form, purchasePrice: value })} />
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid min-w-0 gap-4 sm:grid-cols-2">
               <TextField label="Return deadline" type="date" value={form.returnDeadline} onChange={(value) => setForm({ ...form, returnDeadline: value })} />
               <TextField label="Warranty deadline" type="date" value={form.warrantyDeadline} onChange={(value) => setForm({ ...form, warrantyDeadline: value })} />
             </div>
@@ -365,7 +365,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
             <label className="grid gap-2 text-sm font-medium text-[var(--fg)]">
               Claim status
               <select
-                className="min-h-11 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 text-[var(--fg)]"
+                className="min-h-11 w-full min-w-0 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 text-[var(--fg)]"
                 value={form.claimStatus}
                 onChange={(event) => setForm({ ...form, claimStatus: event.target.value as ClaimStatus })}
               >
@@ -398,7 +398,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
                 </label>
               ))}
             </fieldset>
-            <div className="grid gap-4 sm:grid-cols-[140px_1fr]">
+            <div className="grid min-w-0 gap-4 sm:grid-cols-[140px_1fr]">
               <TextField label="Issue date" type="date" value={form.issueDate} onChange={(value) => setForm({ ...form, issueDate: value })} />
               <TextField
                 label="Issue timeline note"
@@ -409,7 +409,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
             <label className="grid gap-2 text-sm font-medium text-[var(--fg)]">
               Notes
               <textarea
-                className="min-h-24 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 py-2 text-[var(--fg)]"
+                className="min-h-24 w-full min-w-0 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 py-2 text-[var(--fg)]"
                 value={form.notes}
                 onChange={(event) => setForm({ ...form, notes: event.target.value })}
               />
@@ -420,7 +420,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
           </div>
         </form>
 
-        <div className="grid gap-6">
+        <div className="grid min-w-0 gap-6">
           <section className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-5 shadow-[var(--shadow)]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
@@ -508,7 +508,7 @@ export function ProofVaultApp({ storageApi = defaultStorageApi, now = new Date()
           </section>
 
           {selected ? (
-            <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+            <section className="grid min-w-0 gap-6 xl:grid-cols-[0.95fr_1.05fr]">
               <div className="rounded-lg border border-[var(--border)] bg-[var(--panel)] p-5">
                 <h2 className="text-xl font-semibold tracking-tight">{selected.item.name}</h2>
                 <p className="mt-1 text-sm text-[var(--muted)]">{selected.item.seller}</p>
@@ -621,11 +621,11 @@ function TextField({
   const id = label.toLowerCase().replaceAll(" ", "-");
 
   return (
-    <label className="grid gap-2 text-sm font-medium text-[var(--fg)]" htmlFor={id}>
+    <label className="grid min-w-0 gap-2 text-sm font-medium text-[var(--fg)]" htmlFor={id}>
       {label}
       <input
         id={id}
-        className="min-h-11 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 text-[var(--fg)]"
+        className="min-h-11 w-full min-w-0 rounded-md border border-[var(--border)] bg-[var(--panel-strong)] px-3 text-[var(--fg)]"
         type={type}
         value={value}
         required={required}
