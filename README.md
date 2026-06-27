@@ -25,6 +25,11 @@ pnpm test
 pnpm build
 ```
 
+## Deployment
+
+- GitHub: https://github.com/RicoMitra/proofvault
+- Vercel production: https://proofvault-seven.vercel.app
+
 ## Privacy Model
 
 All MVP data stays in the browser through IndexedDB. ProofVault has no backend, login, cloud database, paid API, OpenAI API, or external runtime data source. JSON export/import is the only MVP backup and migration method.
