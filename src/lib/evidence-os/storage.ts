@@ -1,9 +1,9 @@
-import { validateVaultItem } from "./validation";
-import type { VaultItem } from "./types";
+import { validateEvidenceItem } from "./validation";
+import type { EvidenceItem } from "./types";
 
-const DATABASE_NAME = "proofvault";
+const DATABASE_NAME = "evidence-os";
 const DATABASE_VERSION = 1;
-const ITEM_STORE = "vault-items";
+const ITEM_STORE = "evidence-items";
 
 function getIndexedDb(): IDBFactory {
   if (typeof indexedDB === "undefined") {
@@ -25,7 +25,7 @@ function openDatabase(): Promise<IDBDatabase> {
     };
 
     request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error ?? new Error("Unable to open ProofVault storage."));
+    request.onerror = () => reject(request.error ?? new Error("Unable to open Evidence OS storage."));
   });
 }
 
@@ -48,13 +48,13 @@ function withStore<T>(mode: IDBTransactionMode, action: (store: IDBObjectStore) 
   );
 }
 
-export async function listVaultItems(): Promise<VaultItem[]> {
-  const items = await withStore<VaultItem[]>("readonly", (store) => store.getAll() as IDBRequest<VaultItem[]>);
-  return items.filter((item) => validateVaultItem(item).ok);
+export async function listEvidenceItems(): Promise<EvidenceItem[]> {
+  const items = await withStore<EvidenceItem[]>("readonly", (store) => store.getAll() as IDBRequest<EvidenceItem[]>);
+  return items.filter((item) => validateEvidenceItem(item).ok);
 }
 
-export async function saveVaultItem(item: VaultItem): Promise<void> {
-  const validation = validateVaultItem(item);
+export async function saveEvidenceItem(item: EvidenceItem): Promise<void> {
+  const validation = validateEvidenceItem(item);
   if (!validation.ok) {
     throw new Error(validation.errors.join(" "));
   }
@@ -62,12 +62,12 @@ export async function saveVaultItem(item: VaultItem): Promise<void> {
   await withStore<IDBValidKey>("readwrite", (store) => store.put(item));
 }
 
-export async function deleteVaultItem(id: string): Promise<void> {
+export async function deleteEvidenceItem(id: string): Promise<void> {
   await withStore<undefined>("readwrite", (store) => store.delete(id) as IDBRequest<undefined>);
 }
 
-export async function replaceAllVaultItems(items: VaultItem[]): Promise<void> {
-  const invalid = items.map(validateVaultItem).find((result) => !result.ok);
+export async function replaceAllEvidenceItems(items: EvidenceItem[]): Promise<void> {
+  const invalid = items.map(validateEvidenceItem).find((result) => !result.ok);
   if (invalid && !invalid.ok) {
     throw new Error(invalid.errors.join(" "));
   }
@@ -85,11 +85,11 @@ export async function replaceAllVaultItems(items: VaultItem[]): Promise<void> {
     };
     transaction.onerror = () => {
       db.close();
-      reject(transaction.error ?? new Error("Unable to replace ProofVault items."));
+      reject(transaction.error ?? new Error("Unable to replace Evidence OS items."));
     };
   });
 }
 
-export async function clearVault(): Promise<void> {
+export async function clearEvidenceItems(): Promise<void> {
   await withStore<undefined>("readwrite", (store) => store.clear() as IDBRequest<undefined>);
 }

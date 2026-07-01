@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ProofVault",
-  description: "Local-first claim readiness dashboard for purchase and service evidence."
+  title: "Evidence OS",
+  description: "Local-first career evidence system for portfolio, README, resume, and case-study exports."
 };
 
 export default function RootLayout({

@@ -1,5 +1,5 @@
-import { ProofVaultApp } from "@/components/proofvault-app";
+import { EvidenceOsApp } from "@/components/evidence-os-app";
 
 export default function Home() {
-  return <ProofVaultApp />;
+  return <EvidenceOsApp />;
 }

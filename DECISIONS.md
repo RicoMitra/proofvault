@@ -2,58 +2,51 @@
 
 This file records approved product and technical decisions. Add new entries instead of silently changing historical rationale. If a decision is replaced, mark it as superseded and link to the replacement entry.
 
-## D-001: Separate ProofVault Project
+## D-001: Reuse ProofVault Repository for Evidence OS
 
 - **Status:** Accepted
-- **Decision:** Build ProofVault as a separate local folder, GitHub repository, and Vercel project named `proofvault`.
-- **Rationale:** ProofVault has a different domain, data model, and visual identity from DecisionOS, `stock-portfolio-dashboard`, and `Dan-Agent-F`.
-- **Consequence:** Do not merge files, deployments, or repositories with any existing project.
+- **Decision:** Convert the existing `proofvault` project into Evidence OS while keeping the same local folder, GitHub repository, and Vercel project.
+- **Rationale:** The owner explicitly requested updating ProofVault rather than creating a new repo or deployment.
+- **Consequence:** Product branding becomes Evidence OS, but repository and deployment ownership remain tied to `RicoMitra/proofvault`.
 
 ## D-002: Local-First Browser Storage
 
 - **Status:** Accepted
 - **Decision:** Store MVP user data in browser IndexedDB on the current device.
-- **Rationale:** Claim evidence metadata can be sensitive, and the MVP must avoid accounts, servers, cloud persistence, and external services.
-- **Consequence:** All persistence code stays client-side. There is no backend, authentication, Supabase, Firebase, cloud database, or server-side portfolio.
+- **Rationale:** Career evidence can be sensitive, and the MVP must avoid accounts, servers, cloud persistence, and external services.
+- **Consequence:** All persistence code stays client-side. There is no backend, authentication, Supabase, Firebase, cloud database, or server-side portfolio/evidence store.
 
-## D-003: JSON Export and Import Only
-
-- **Status:** Accepted
-- **Decision:** Use versioned JSON export/import as the only MVP backup and migration method.
-- **Rationale:** JSON keeps the backup transparent, free, portable, and independent from cloud accounts.
-- **Consequence:** Imports must be validated before replacing local data, and failed imports must preserve existing data.
-
-## D-004: Deterministic 0-100 Readiness Score
+## D-003: Manual-First Evidence Capture
 
 - **Status:** Accepted
-- **Decision:** Calculate a transparent 0-100 readiness score from evidence completeness, deadline safety, identity traceability, issue documentation, and claim status clarity.
+- **Decision:** Require the user to choose an evidence type first and enter supporting context manually.
+- **Rationale:** Prior screenshot-classification work showed that auto-detection often fails and creates unknown or unrecognized records.
+- **Consequence:** No full auto-classifier, OCR dependency, or AI extraction is part of the MVP. Assistance is limited to structured fields, deterministic scoring, and export formatting.
+
+## D-004: JSON Backup and Markdown Export
+
+- **Status:** Accepted
+- **Decision:** Use versioned JSON export/import for backup and local Markdown generation for portfolio outputs.
+- **Rationale:** JSON and Markdown are free, portable, inspectable, and compatible with GitHub/resume/case-study workflows.
+- **Consequence:** Imports must be validated before replacing local data, failed imports must preserve existing data, and public Markdown exports must exclude private notes.
+
+## D-005: Deterministic 0-100 Credibility Score
+
+- **Status:** Accepted
+- **Decision:** Calculate a transparent 0-100 score from source clarity, context completeness, impact specificity, verification strength, and export readiness.
 - **Rationale:** A deterministic score is explainable, testable, and suitable for a portfolio project without AI or professional advice.
 - **Consequence:** Scoring weights and thresholds are product semantics and require owner approval before changing.
 
-## D-005: Non-Advisory Warning Language
-
-- **Status:** Accepted
-- **Decision:** Warnings explain trigger conditions but never tell users what legal action to take.
-- **Rationale:** ProofVault is a readiness tool, not a legal or professional advisor.
-- **Consequence:** UI copy and generated messages must remain descriptive and non-prescriptive.
-
-## D-006: No External Runtime Data Sources
+## D-006: No External Runtime Services
 
 - **Status:** Accepted
 - **Decision:** The MVP uses only user-entered data and local browser state.
-- **Rationale:** This keeps the product free, reliable, private, and Vercel Hobby compatible.
-- **Consequence:** Do not add paid APIs, OpenAI API usage, live data feeds, or runtime service dependencies.
+- **Rationale:** This keeps the product free, reliable, private, and deployable on free Vercel/Cloudflare-style hosting.
+- **Consequence:** Do not add paid APIs, AI APIs, OCR dependencies, live data feeds, authentication, cloud sync, team workspaces, payment systems, or runtime service dependencies.
 
-## D-007: File Upload Excluded From MVP
-
-- **Status:** Accepted
-- **Decision:** MVP tracks whether evidence exists through checklist state and notes, without storing uploaded files.
-- **Rationale:** File storage increases complexity and privacy risk.
-- **Consequence:** Evidence checklist fields and timeline notes are in scope; binary file persistence can be reconsidered later.
-
-## D-008: Secure Utility Visual Identity
+## D-007: Premium Productivity Visual Identity
 
 - **Status:** Accepted
-- **Decision:** Use a secure, practical, modern dashboard identity with slate/graphite neutrals and a restrained teal accent.
-- **Rationale:** ProofVault should feel like a reliable evidence workspace and must not copy the cream/private-banking direction from other projects.
-- **Consequence:** Create and maintain `DESIGN.md` after the first UI implementation.
+- **Decision:** Use a calm, polished, dashboard-first productivity identity with graphite/slate neutrals and restrained mint/teal accents.
+- **Rationale:** Evidence OS should feel credible and useful without generic AI visuals or excessive decoration.
+- **Consequence:** Maintain `DESIGN.md` as the persistent design source of truth.
